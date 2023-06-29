@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { CSSTransition } from "react-transition-group";
 
 export default function FAQ() {
   const [expandedItems, setExpandedItems] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Function to handle toggle of FAQ item
   const handleToggle = (index) => {
@@ -13,10 +15,32 @@ export default function FAQ() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const elementOffsetTop = document.getElementById('scroll-animation').offsetTop;
+
+      if (scrollPosition > elementOffsetTop - windowHeight / 2) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+
   return (
-    <div>
       <section className="py-24 lg:py-32 bg-white overflow-hidden">
-        <div className="container px-4 mx-auto">
+        <motion.div 
+        id="scroll-animation"
+      initial={{ x: "100%", opacity: 0 }}
+      animate={isVisible ? { x: 0, opacity: 1 } : {}}
+      transition={{ duration: 2 }}
+        className="container px-4 mx-auto">
           <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl tracking-tighter mb-8 text-center">
             Provide some additional information with this FAQ Accordion.
           </h2>
@@ -80,9 +104,8 @@ export default function FAQ() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
-    </div>
   );
 }
 

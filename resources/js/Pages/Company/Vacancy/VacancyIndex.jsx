@@ -4,6 +4,7 @@ import CompanyDashboardLayout from "@/Layouts/CompanyDashboardLayout";
 import "react-datepicker/dist/react-datepicker.css";
 import { BriefcaseIcon, TrashIcon } from "@heroicons/react/24/solid";
 import Paginator from "@/Components/Paginator";
+import { motion } from "framer-motion";
 
 export default function Dashboard({ auth, vacancy, ...props }) {
   const [redirect, setRedirect] = useState(false);
@@ -24,7 +25,7 @@ export default function Dashboard({ auth, vacancy, ...props }) {
     setSelectedVacancy(vacancy);
     setShowModal(true);
   };
-
+ 
   const handleDelete = () => {
     // Perform the deletion logic here
     // After successful deletion, close the modal
@@ -42,19 +43,24 @@ export default function Dashboard({ auth, vacancy, ...props }) {
     >
       <Head title="Dashboard" />
       <div className="flex items-end justify-end ">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 1.1 }}
           className="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white"
           onClick={handleAddClick}
           href={route("vacancy.create")}
         >
           Add
-        </button>
+        </motion.button>
       </div>
 
       <div className="flex justify-end py-12 pr-4">
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
           {vacancy.data.map((item) => (
-            <div
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
               key={item.id}
               className="card bg-base-100 shadow-md rounded-md p-4 w-96"
             >
@@ -75,15 +81,17 @@ export default function Dashboard({ auth, vacancy, ...props }) {
                   </p>
                 </div>
                 <div className="card-actions mt-3">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 1.1 }}
                     className="btn btn-primary btn-sm focus:outline-none"
                     onClick={() => handleSeeDetails(item)}
                   >
                     See Details
-                  </button>
+                  </motion.button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

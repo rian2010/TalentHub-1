@@ -4,6 +4,7 @@ import { usePage } from "@inertiajs/react";
 import { useState } from "react";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import Paginator from "@/Components/Paginator";
+import { motion } from "framer-motion";
 
 function Vacancy() {
   const { vacancy } = usePage().props;
@@ -23,10 +24,18 @@ function Vacancy() {
   return (
     <LandingPageLayout>
       <div className="p-16">
-        <div className="flex flex-wrap justify-center -mx-4">
+        <motion.div
+          initial={{ opacity: 0, y: -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="flex flex-wrap justify-center -mx-4"
+        >
           {vacancy.data.map((item) => (
-            <div
+            <motion.div
               key={item.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
               className="max-w-sm rounded overflow-hidden shadow-lg mx-4 mb-4"
             >
               <img
@@ -38,17 +47,19 @@ function Vacancy() {
                 <div className="text-xl font-bold mb-2">{item.user.name}</div>
                 <p>{item.position}</p>
                 <div className="flex justify-end">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 1.1 }}
                     onClick={() => handleSeeDetails(item)}
                     className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded-full"
                   >
                     See Details
-                  </button>
+                  </motion.button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <div className="flex justify-center">
           <Paginator links={vacancy.links} />

@@ -5,6 +5,8 @@ import Profile from "@/Images/wallpaper.jpg";
 import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import Icon from "@/Images/icon.png";
 import Kampus from "@/Images/Kampus.jpg";
+import { motion } from "framer-motion";
+
 
 export default function Dashboard({ auth, education, ...props }) {
   return (
@@ -19,9 +21,17 @@ export default function Dashboard({ auth, education, ...props }) {
       <Head title="Dashboard" />
 
       <div className="py-6">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
-            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <motion.div 
+             initial={{ opacity: 0, y: -20 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.5 }}
+            className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               <div className="p-6 text-gray-900">
                 <h3 className="text-lg font-semibold leading-6 text-gray-900 mb-4">
                   Profile
@@ -70,7 +80,7 @@ export default function Dashboard({ auth, education, ...props }) {
                   </div>
                 </dl>
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="md:col-span-1 bg-white w-full h-full lg:w-full overflow-hidden shadow-sm sm:rounded-lg">
             <div className="relative">
@@ -93,7 +103,10 @@ export default function Dashboard({ auth, education, ...props }) {
               <h2 className="text-center text-base text-gray-400 mt-2">
                 Teknologi Rekayasa Perangkat Lunak
               </h2>
-
+            <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1.1 }}
+            >
               <Link href={route("generate.index")}>
                 <div className="flex justify-center">
                   <button className="bg-indigo-500 w-11/12 py-1.5 hover:bg-blue-700 text-white font-bold mt-4  rounded">
@@ -101,9 +114,10 @@ export default function Dashboard({ auth, education, ...props }) {
                   </button>
                 </div>
               </Link>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </UserDashboardLayout>
   );

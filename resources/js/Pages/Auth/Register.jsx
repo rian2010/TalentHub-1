@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { motion } from "framer-motion";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import Poltek from "@/Images/640px-Logo_Politeknik_Negeri_Batam.png";
@@ -29,7 +30,11 @@ export default function Register() {
   };
 
   return (
-    <div
+    <motion.div
+    initial={{ opacity: 0, y: -100 }} // Mulai dengan opacity 0 dan bergeser dari atas
+    animate={{ opacity: 1, y: 0 }} // Animasikan ke opacity penuh dan kembali ke posisi asli
+    transition={{ duration: 0.5, delay: 0.2 }} // Animasi selama 0.5 detik dengan penundaan 0.2 detik
+    exit={{ opacity: 0, y: 100 }} 
       className="flex items-center justify-center h-screen bg-slate-300"
       // style={{
       //     backgroundImage: `url(${Kampus})`,
@@ -40,7 +45,11 @@ export default function Register() {
     >
       <Head title="Register" />
       <div className="max-w-md w-full mx-auto p-8 bg-white dark:bg-boxdark rounded-md shadow-default border border-stroke dark:border-strokedark">
-        <form onSubmit={submit}>
+        <motion.form 
+        initial={{ opacity: 0 }} // Mulai dengan opacity 0
+          animate={{ opacity: 1 }} // Animasikan ke opacity penuh
+          transition={{ duration: 0.5, delay: 0.4 }}
+        onSubmit={submit}>
           <div>
             <InputLabel htmlFor="name" value="Name" />
 
@@ -140,13 +149,13 @@ export default function Register() {
             >
               Already registered?
             </Link>
-
+          
             <PrimaryButton className="ml-4" disabled={processing}>
               Register
             </PrimaryButton>
           </div>
-        </form>{" "}
+        </motion.form>{" "}
       </div>
-    </div>
+    </motion.div>
   );
 }

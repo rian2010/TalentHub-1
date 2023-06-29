@@ -2,6 +2,7 @@ import { Link, useForm, usePage } from "@inertiajs/react";
 import React from "react";
 import Kampus from "@/Images/Kampus.jpg";
 import Icon from "@/Images/wallpaper.jpg";
+import { motion } from "framer-motion";
 
 export default function UpdateProfileTalent(auth, status, mustVerifyEmail) {
   const user = usePage().props.auth.user;
@@ -35,7 +36,11 @@ export default function UpdateProfileTalent(auth, status, mustVerifyEmail) {
 
   return (
     <div className="py-6">
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      <motion.div 
+      initial={{ opacity: 0, y: -100 }}
+         animate={{ opacity: 1, y: 0 }}
+         transition={{ duration: 0.5 }}
+      className="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
             <div className="mx-auto max-w-2xl">
@@ -245,6 +250,10 @@ export default function UpdateProfileTalent(auth, status, mustVerifyEmail) {
                       </div>
                     )}
                     <div className="mt-6 flex items-center justify-end gap-x-6">
+                      <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 1.1 }}
+                      >
                       <Link
                         href={route("home")}
                         type="button"
@@ -252,13 +261,16 @@ export default function UpdateProfileTalent(auth, status, mustVerifyEmail) {
                       >
                         Cancel
                       </Link>
-                      <button
+                      </motion.div>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 1.1 }}
                         disabled={processing}
                         type="submit"
                         className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
                         Save
-                      </button>
+                      </motion.button>
                     </div>
                   </form>
                 </div>
@@ -303,7 +315,7 @@ export default function UpdateProfileTalent(auth, status, mustVerifyEmail) {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link, useForm, usePage } from "@inertiajs/react";
+import { motion } from "framer-motion";
 
 export default function UpdateProfile(mustVerifyEmail, status) {
   const user = usePage().props.auth.user;
@@ -181,19 +182,23 @@ export default function UpdateProfile(mustVerifyEmail, status) {
         )}
 
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1.1 }}
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Cancel
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 1.1 }}
             type="submit"
             disabled={processing}
             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Save
-          </button>
+          </motion.button>
         </div>
       </form>
     </div>

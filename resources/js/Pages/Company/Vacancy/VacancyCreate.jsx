@@ -3,6 +3,7 @@ import CompanyDashboardLayout from "@/Layouts/CompanyDashboardLayout";
 import InputError from "@/Components/InputError";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
 
 export default function Dashboard({ auth }) {
   const { data, setData, post, processing, reset, errors } = useForm({
@@ -18,8 +19,36 @@ export default function Dashboard({ auth }) {
 
   const submit = (e) => {
     e.preventDefault();
-    post(route("vacancy.store"), { onSuccess: () => reset() });
+
+    // Cek jika inputan belum diisi
+    if (!inputIsValid()) {
+      toast.error("Data failed to save. Please fill in all the fields.");
+      return;
+    }
+
+    post(route("vacancy.store"), {
+      data: data,
+      onSuccess: () => reset(),
+    });
     toast.success("Data saved successfully!");
+  };
+
+  const inputIsValid = () => {
+  
+    if (
+      !data.position ||
+      !data.salary ||
+      !data.registration_duration ||
+      !data.job_offer ||
+      !data.experience_level ||
+      !data.placement_location ||
+      !data.job_desk ||
+      !data.requirement 
+    ) {
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -35,7 +64,11 @@ export default function Dashboard({ auth }) {
       <ToastContainer />
 
       <div className="py-12">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 p-6">
+        <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="max-w-7xl mx-auto sm:px-6 lg:px-8 p-6">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
             <form onSubmit={submit}>
               <div className="space-y-12">
@@ -239,6 +272,10 @@ export default function Dashboard({ auth }) {
                 </div>
               </div>
               <div className="mt-6 flex items-center justify-end gap-x-6">
+                <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 1.1 }}
+                >
                 <Link
                   href={route("vacancy.index")}
                   type="button"
@@ -246,17 +283,20 @@ export default function Dashboard({ auth }) {
                 >
                   Cancel
                 </Link>
-                <button
+                </motion.div>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 1.1 }}
                   disabled={processing}
                   type="submit"
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Save
-                </button>
+                </motion.button>
               </div>
             </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </CompanyDashboardLayout>
   );

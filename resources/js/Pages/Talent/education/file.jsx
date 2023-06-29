@@ -4,6 +4,7 @@ import UserDashboardLayout from "@/Layouts/UserDashboardLayout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import InputError from "@/Components/InputError";
+import { motion } from "framer-motion";
 
 export default function Dashboard({ auth, props }) {
   const { data, setData, post, processing, reset, errors } = useForm({
@@ -16,8 +17,34 @@ export default function Dashboard({ auth, props }) {
 
   const submit = (e) => {
     e.preventDefault();
-    post(route("education.store"), { onSuccess: () => reset() });
+
+    
+    if (!inputIsValid()) {
+      toast.error("Data failed to save. Please fill in all the fields.");
+      return;
+    }
+
+    post(route("education.store"), {
+      data: data,
+      onSuccess: () => reset(),
+    });
     toast.success("Data saved successfully!");
+  };
+
+  const inputIsValid = () => {
+
+    if (
+      !data.mark ||
+      !data.major ||
+      !data.year_start ||
+      !data.year_end ||
+      !data.last_education
+      
+    ) {
+      return false;
+    }
+
+    return true;
   };
 
   console.log("props last:", props);
@@ -35,7 +62,11 @@ export default function Dashboard({ auth, props }) {
       <ToastContainer />
 
       <div className="py-12">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <motion.div 
+         initial={{ opacity: 0 }} 
+         animate={{ opacity: 1 }} 
+         transition={{ duration: 0.5, delay: 0.4 }}
+        className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
             <form className="rounded-lg" onSubmit={submit}>
               <div className="space-y-12">
@@ -155,23 +186,30 @@ export default function Dashboard({ auth, props }) {
                 </div>
               </div>
               <div className="mt-6 flex items-center justify-end gap-x-6">
+                <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 1.1 }}
+                >
                 <Link
                   href={route("education.index")}
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >
                   Back
                 </Link>
-                <button
+                </motion.div>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 1.1 }}
                   type="submit"
                   disabled={processing}
                   className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Submit
-                </button>
+                  Save
+                </motion.button>
               </div>
             </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </UserDashboardLayout>
   );

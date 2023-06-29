@@ -3,6 +3,7 @@ import { Head, Link, router, useForm, usePage } from "@inertiajs/react"; // Impo
 import UserDashboardLayout from "@/Layouts/UserDashboardLayout";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
 
 export default function Dashboard({ auth }) {
   const education = usePage().props.auth.user;
@@ -32,7 +33,11 @@ export default function Dashboard({ auth }) {
       <Head title="Dashboard" />
 
       <div className="py-12">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <motion.div 
+        initial={{ opacity: 0 }} // Mulai dengan opacity 0
+        animate={{ opacity: 1 }} // Animasikan ke opacity penuh
+        transition={{ duration: 0.5, delay: 0.4 }}  
+        className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
             <form className="rounded-lg" onSubmit={submit}>
               <div className="space-y-12">
@@ -162,7 +167,7 @@ export default function Dashboard({ auth }) {
               </div>
             </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </UserDashboardLayout>
   );

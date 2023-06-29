@@ -11,6 +11,7 @@ import {
   TrophyIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
 
 export default function generate({}) {
   const user = usePage().props.auth.user;
@@ -57,7 +58,10 @@ export default function generate({}) {
 
   return (
     <div className="py-12">
-      <div
+      <motion.div
+         initial={{ opacity: 0, y: -100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
         className={`flex flex-col items-center justify-center bg-white h-full ${
           isPrinting ? "print-mode" : ""
         }`}
@@ -73,13 +77,15 @@ export default function generate({}) {
           } sm:rounded-lg p-6`}
         >
           <div className="flex flex-col items-center">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 1.1 }}
               className="absolute top-0 left-0 mt-2 ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center print:hidden"
               onClick={handleGoBack}
             >
               <ArrowUturnLeftIcon className="h-5 w-5 mr-2" />
               Back
-            </button>
+            </motion.button>
 
             {isPrinting ? null : (
               <div
@@ -101,13 +107,15 @@ export default function generate({}) {
             <h2 className="text-center text-base text-gray-900 mt-2">
               Teknologi Rekayasa Perangkat Lunak
             </h2>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 1.1 }}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 flex items-center justify-center print:hidden"
               onClick={handlePrint}
             >
               <PrinterIcon className="h-5 w-5 mr-2" />
               Print
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -292,7 +300,7 @@ export default function generate({}) {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <style>
         {`

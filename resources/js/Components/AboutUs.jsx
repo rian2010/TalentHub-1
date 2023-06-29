@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const links = [
   { name: "Explore Job Openings", href: "vacancy" },
@@ -10,8 +11,32 @@ const stats = [
 ];
 
 export default function Example() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const elementOffsetTop = document.getElementById('scroll-animation').offsetTop;
+
+      if (scrollPosition > elementOffsetTop - windowHeight / 2) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
+    <motion.div
+    id="scroll-animation"
+      initial={{ x: -100, opacity: 0 }}
+      animate={isVisible ? { x: 0, opacity: 1 } : {}}
+      transition={{ duration: 0.9 }}
+    className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
       <img
         src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
         alt=""
@@ -74,6 +99,6 @@ export default function Example() {
           </dl>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
