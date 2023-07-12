@@ -18,7 +18,6 @@ export default function Dashboard({ auth, props }) {
   const submit = (e) => {
     e.preventDefault();
 
-    
     if (!inputIsValid()) {
       toast.error("Data failed to save. Please fill in all the fields.");
       return;
@@ -32,14 +31,12 @@ export default function Dashboard({ auth, props }) {
   };
 
   const inputIsValid = () => {
-
     if (
       !data.mark ||
       !data.major ||
       !data.year_start ||
       !data.year_end ||
       !data.last_education
-      
     ) {
       return false;
     }
@@ -54,7 +51,7 @@ export default function Dashboard({ auth, props }) {
       user={auth.user}
       header={
         <h2 className="font-semibold text-xl text-white leading-tight">
-          Dashboard
+          Education
         </h2>
       }
     >
@@ -62,11 +59,12 @@ export default function Dashboard({ auth, props }) {
       <ToastContainer />
 
       <div className="py-12">
-        <motion.div 
-         initial={{ opacity: 0 }} 
-         animate={{ opacity: 1 }} 
-         transition={{ duration: 0.5, delay: 0.4 }}
-        className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="max-w-7xl mx-auto sm:px-6 lg:px-8"
+        >
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
             <form className="rounded-lg" onSubmit={submit}>
               <div className="space-y-12">
@@ -187,15 +185,15 @@ export default function Dashboard({ auth, props }) {
               </div>
               <div className="mt-6 flex items-center justify-end gap-x-6">
                 <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 1.1 }}
                 >
-                <Link
-                  href={route("education.index")}
-                  className="text-sm font-semibold leading-6 text-gray-900"
-                >
-                  Back
-                </Link>
+                  <Link
+                    href={route("education.index")}
+                    className="text-sm font-semibold leading-6 text-gray-900"
+                  >
+                    Back
+                  </Link>
                 </motion.div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}

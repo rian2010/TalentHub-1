@@ -3,18 +3,18 @@ import LandingPageLayout from "@/Layouts/LandingPageLayout";
 import { Link, usePage } from "@inertiajs/react";
 import Paginator from "@/Components/Paginator";
 import { motion } from "framer-motion";
- 
+
 export default function Talent() {
   const { talent } = usePage().props;
 
   const containerVariants = {
     hidden: { opacity: 0, y: -100 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
   };
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
   };
 
   return (
@@ -24,7 +24,8 @@ export default function Talent() {
           className="flex flex-wrap justify-center -mx-4"
           initial="hidden"
           animate="visible"
-          variants={containerVariants}>
+          variants={containerVariants}
+        >
           {talent.data.map((item) => (
             <motion.div
               key={item.id}
@@ -34,23 +35,23 @@ export default function Talent() {
               <motion.img
                 variants={itemVariants}
                 className="w-full bg-cover"
-                src="https://placeimg.com/640/480/any"
+                src="https://images.unsplash.com/photo-1494959764136-6be9eb3c261e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
                 alt="Sunset in the mountains"
               />
-              <motion.div 
-              variants={itemVariants}
-              className="px-6 py-4">
-                <motion.div 
-                variants={itemVariants}
-                className="text-sm mb-2 ">{item.name}</motion.div>
-                <motion.div 
-                variants={itemVariants}
-                className="flex justify-end">
+              <motion.div variants={itemVariants} className="px-6 py-4">
+                <motion.div variants={itemVariants} className="text-sm mb-2 ">
+                  {item.name}
+                </motion.div>
+                <motion.div
+                  variants={itemVariants}
+                  className="flex justify-end"
+                >
                   <Link href={route("talent.details", { id: item.id })}>
-                    <motion.button 
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 1.1 }}
-                    className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded-full">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 1.1 }}
+                      className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded-full"
+                    >
                       See Details
                     </motion.button>
                   </Link>
@@ -59,9 +60,7 @@ export default function Talent() {
             </motion.div>
           ))}
         </motion.div>
-        <motion.div 
-        variants={itemVariants}
-        className="flex justify-center">
+        <motion.div variants={itemVariants} className="flex justify-center">
           <Paginator links={talent.links} />
         </motion.div>
       </div>

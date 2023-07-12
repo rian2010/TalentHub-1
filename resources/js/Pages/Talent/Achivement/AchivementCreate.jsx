@@ -22,7 +22,7 @@ export default function Dashboard({ auth }) {
       return;
     }
 
-    post(route("experience.store"), {
+    post(route("achivement.store"), {
       data: data,
       onSuccess: () => reset(),
     });
@@ -30,13 +30,7 @@ export default function Dashboard({ auth }) {
   };
 
   const inputIsValid = () => {
-
-    if (
-      !data.description ||
-      !data.position ||
-      !data.achivement_date
-      
-    ) {
+    if (!data.description || !data.position || !data.achivement_date) {
       return false;
     }
 
@@ -56,11 +50,12 @@ export default function Dashboard({ auth }) {
       <ToastContainer />
 
       <div className="py-12">
-        <motion.div 
-         initial={{ opacity: 0 }} 
-         animate={{ opacity: 1 }} 
-         transition={{ duration: 0.5, delay: 0.4 }}
-        className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="max-w-7xl mx-auto sm:px-6 lg:px-8"
+        >
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
             <div className="border-b border-gray-900/10 pb-12">
               <h2 className="flex items-center text-base font-semibold leading-7 text-gray-900">
@@ -77,7 +72,7 @@ export default function Dashboard({ auth }) {
                     htmlFor="position"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Position
+                    Rankings
                   </label>
                   <div className="mt-2">
                     <input
@@ -142,17 +137,16 @@ export default function Dashboard({ auth }) {
                 <div className="sm:col-span-6">
                   <div className="mt-6 flex items-center justify-end gap-x-6">
                     <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 1.1 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 1.1 }}
                     >
-                    <Link
-                      
-                      href={route("achivement.index")}
-                      type="button"
-                      className="text-sm font-semibold leading-6 text-gray-900"
-                    >
-                      Back
-                    </Link>
+                      <Link
+                        href={route("achivement.index")}
+                        type="button"
+                        className="text-sm font-semibold leading-6 text-gray-900"
+                      >
+                        Back
+                      </Link>
                     </motion.div>
                     <motion.button
                       whileHover={{ scale: 1.05 }}
